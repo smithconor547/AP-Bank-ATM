@@ -58,4 +58,12 @@ System.out.println(pin);
     public int getAccountNumber() {
         return customerNumber;
     }
+    
+    public Checking getChecking() {
+        return checking;
+    }
+    
+    public Savings getSavings() {
+        return savings;
+    }
 }

@@ -32,21 +32,10 @@ public class Atm {
         boolean keepGoing = true;
         boolean correctPin = false;
         int choice;
-        /*
-Customer c = new Customer();
+        Customer c = new Customer(new Checking(1, 0), new Savings(1, 0), 1, 0);
 
-Account a = new Account("savings", 1234, 100);
+        Database.addAccount(1234, 100, new Checking(1234, 101), new Savings(1234, 102));
 
-Account a2 = new Account("checking", 1234, 101);
-
-Account a3 = new Account("savings", 4321, 123);
-
-Account a4 = new Account("checking", 4321, 124);
-         */
-        Database.addAccount(a);
-        Database.addAccount(a2);
-        Database.addAccount(a3);
-        Database.addAccount(a4);
 //option enter account number or exit
         while (mainContinue) {
 //ask the user the account number they are lookig for
@@ -62,17 +51,21 @@ Account a4 = new Account("checking", 4321, 124);
                     while (keepGoing) {
 //if the pin is correct let them decide what they want to do
 //options for what to do if the pin is correct
-                        System.out.println("Account type: "
-                                + Database.getAccount(accountNum).getType());
                         choice = options();
-                        if (choice == 1) {
-                            Database.getAccount(accountNum).displayBalance();
-                        } else if (choice == 2) {
-                            Database.getAccount(accountNum).deposit(c.inputAmount());
-                        } else if (choice == 3) {
-                            Database.getAccount(accountNum).withdraw(c.inputAmount());
-                        } else {
-                            System.out.println("that's not a valid response");
+                        switch (choice) {
+                            case 1:
+                                // FIX: need more options to let the user choose between account types
+                                Database.getAccount(accountNum).getSavings().displayBalance();
+                                break;
+                            case 2:
+                                Database.getAccount(accountNum).getSavings().deposit(c.inputAmount());
+                                break;
+                            case 3:
+                                Database.getAccount(accountNum).getSavings().withdraw(c.inputAmount());
+                                break;
+                            default:
+                                System.out.println("that's not a valid response");
+                                break;
                         }
 //ask them if they want to do anything else to the account
                         if (doSomethingElse()) {
